@@ -9,7 +9,7 @@ import MBProgressHUD
     ///   - view: 展示的视图
     ///   - blur: 背景是否模糊处理
     ///   - effectStyle: 模糊效果的风格(仅在blur为true时有效)
-    @objc open class func showLoading(_ text: String? = nil, on view: UIView? = nil, blur: Bool = false, effectStyle: UIBlurEffect.Style = .dark) {
+    @objc open class func showLoading(_ text: String? = nil, on view: UIView? = nil, config handler: ((MBProgressHUD) -> Void)? = nil) {
         getMainThread {
             let onView: UIView?
             if let view = view {
@@ -20,13 +20,12 @@ import MBProgressHUD
             guard let view = onView else { return }
             hide()
             let hud = MBProgressHUD.showAdded(to: view, animated: true)
-            if blur {
-                hud.backgroundView.style = .blur
-                hud.backgroundView.blurEffectStyle = effectStyle
-            }
             hud.label.text = text
             hud.removeFromSuperViewOnHide = true
             hud.defaultStyle()
+            if let handler = handler {
+                handler(hud)
+            }
         }
     }
     
@@ -37,7 +36,7 @@ import MBProgressHUD
     ///   - view: 展示的视图
     ///   - delay: 延迟隐藏的时间, ==0则不隐藏
     ///   - closure: 隐藏后的回调
-    @objc open class func show(_ text: String?, icon: String?, on view: UIView? = nil, hideAfter delay: TimeInterval = 1.5, completed closure: (() -> Void)? = nil) {
+    @objc open class func show(_ text: String?, icon: String?, on view: UIView? = nil, hideAfter delay: TimeInterval = 1.5, config handler: ((MBProgressHUD) -> Void)? = nil, completed closure: (() -> Void)? = nil) {
         getMainThread {
             let onView: UIView?
             if let view = view {
@@ -57,6 +56,9 @@ import MBProgressHUD
             hud.removeFromSuperViewOnHide = true
             hud.completionBlock = closure
             hud.defaultStyle()
+            if let handler = handler {
+                handler(hud)
+            }
             if delay > 0 {
                 hud.hide(animated: true, afterDelay: delay)
             }
@@ -69,8 +71,8 @@ import MBProgressHUD
     ///   - view: 展示的视图
     ///   - delay: 延迟隐藏的时间, ==0则不隐藏
     ///   - closure: 隐藏后的回调
-    @objc open class func showMessage(_ text: String?, on view: UIView? = nil, hideAfter delay: TimeInterval = 1.5, complated closure: (() -> Void)? = nil) {
-        show(text, icon: nil, on: view, hideAfter: delay, completed: closure)
+    @objc open class func showMessage(_ text: String?, on view: UIView? = nil, hideAfter delay: TimeInterval = 1.5, config handler: ((MBProgressHUD) -> Void)? = nil, completed closure: (() -> Void)? = nil) {
+        show(text, icon: nil, on: view, hideAfter: delay, config: handler, completed: closure)
     }
     
     /// 成功
@@ -79,8 +81,8 @@ import MBProgressHUD
     ///   - view: 展示的视图
     ///   - delay: 延迟隐藏的时间, ==0则不隐藏
     ///   - closure: 隐藏后的回调
-    @objc open class func showSucceed(_ text: String?, on view: UIView? = nil, hideAfter delay: TimeInterval = 1.5, complated closure: (() -> Void)? = nil) {
-        show(text, icon: "hud_succeed", on: view, hideAfter: delay, completed: closure)
+    @objc open class func showSucceed(_ text: String?, on view: UIView? = nil, hideAfter delay: TimeInterval = 1.5, config handler: ((MBProgressHUD) -> Void)? = nil, completed closure: (() -> Void)? = nil) {
+        show(text, icon: "hud_succeed", on: view, hideAfter: delay, config: handler, completed: closure)
     }
     
     /// 警告
@@ -89,8 +91,8 @@ import MBProgressHUD
     ///   - view: 展示的视图
     ///   - delay: 延迟隐藏的时间, ==0则不隐藏
     ///   - closure: 隐藏后的回调
-    @objc open class func showWarned(_ text: String?, on view: UIView? = nil, hideAfter delay: TimeInterval = 1.5, complated closure: (() -> Void)? = nil) {
-        show(text, icon: "hud_warned", on: view, hideAfter: delay, completed: closure)
+    @objc open class func showWarned(_ text: String?, on view: UIView? = nil, hideAfter delay: TimeInterval = 1.5, config handler: ((MBProgressHUD) -> Void)? = nil, completed closure: (() -> Void)? = nil) {
+        show(text, icon: "hud_warned", on: view, hideAfter: delay, config: handler, completed: closure)
     }
     
     /// 失败
@@ -99,8 +101,8 @@ import MBProgressHUD
     ///   - view: 展示的视图
     ///   - delay: 延迟隐藏的时间, ==0则不隐藏
     ///   - closure: 隐藏后的回调
-    @objc open class func showFailed(_ text: String?, on view: UIView? = nil, hideAfter delay: TimeInterval = 1.5, complated closure: (() -> Void)? = nil) {
-        show(text, icon: "hud_failed", on: view, hideAfter: delay, completed: closure)
+    @objc open class func showFailed(_ text: String?, on view: UIView? = nil, hideAfter delay: TimeInterval = 1.5, config handler: ((MBProgressHUD) -> Void)? = nil, completed closure: (() -> Void)? = nil) {
+        show(text, icon: "hud_failed", on: view, hideAfter: delay, config: handler, completed: closure)
     }
     
     /// 进度
@@ -108,7 +110,7 @@ import MBProgressHUD
     ///   - text: 要显示的文字
     ///   - view: 展示的视图
     ///   - progress: 进度, 进度>=1后0.2秒隐藏
-    @objc open class func showProgressRound(_ text: String?, on view: UIView? = nil, _ progress: Float) {
+    @objc open class func showProgressRound(_ text: String?, on view: UIView? = nil, _ progress: Float, config handler: ((MBProgressHUD) -> Void)? = nil) {
         getMainThread {
             let onView: UIView?
             if let view = view {
@@ -128,6 +130,9 @@ import MBProgressHUD
             hud.removeFromSuperViewOnHide = true
             hud.progress = progress
             hud.defaultStyle()
+            if let handler = handler {
+                handler(hud)
+            }
             if progress >= 1 {
                 hud.hide(animated: true, afterDelay: 0.3)
             }
@@ -174,7 +179,7 @@ import MBProgressHUD
 
 extension MBProgressHUD {
     
-    @objc fileprivate func defaultStyle() {
+    fileprivate func defaultStyle() {
         bezelView.style = .solidColor
         bezelView.color = UIColor(white: 0, alpha: 0.7)
         contentColor = .white

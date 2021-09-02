@@ -11,7 +11,7 @@ import YSHUD
 
 class ViewController: UIViewController {
     
-    let datas = ["showLoading", "showMessage", "showSucceed", "showWarned", "showFailed", "showProgressRound"]
+    let datas = ["showLoading", "showMessage", "showSucceed", "showWarned", "showFailed", "showProgressRound", "hide"]
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -56,29 +56,33 @@ extension ViewController: UITableViewDelegate {
         tableView.deselectRow(at: indexPath, animated: true)
         switch indexPath.row {
         case 0:
-            HUD.showLoading("HUD.showLoading")
-            DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(2)) {
-                HUD.hide()
+            HUD.showLoading("HUD.showLoading") { hud in
+                hud.isUserInteractionEnabled = false
             }
         case 1:
             HUD.showMessage("HUD.showMessage")
         case 2:
             HUD.showSucceed("HUD.showSucceed")
         case 3:
-            HUD.showWarned("HUD.showWarned") {
+            HUD.showWarned("HUD.showWarned", completed:  {
                 print("HUD.showWarned")
-            }
+            })
         case 4:
             HUD.showFailed("HUD.showFailed")
         case 5:
             var progress = 0
             Timer.scheduledTimer(withTimeInterval: 0.05, repeats: true) { timer in
                 progress += 1
-                HUD.showProgressRound("\(progress)%", Float(progress) / 100)
+                HUD.showProgressRound("\(progress)%", Float(progress) / 100) { hud in
+                    hud.backgroundView.style = .blur
+                    hud.backgroundView.blurEffectStyle = .light
+                }
                 if progress >= 100 {
                     timer.invalidate()
                 }
             }
+        case 6:
+            HUD.hide()
         default:
             break
         }
