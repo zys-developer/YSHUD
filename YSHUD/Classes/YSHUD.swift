@@ -1,5 +1,6 @@
 
 import MBProgressHUD
+import UIKit
 
 @objc open class HUD: NSObject {
     
@@ -18,8 +19,12 @@ import MBProgressHUD
                 onView = keyWindow()
             }
             guard let view = onView else { return }
-            hide()
-            let hud = MBProgressHUD.showAdded(to: view, animated: true)
+            let hud: MBProgressHUD
+            if let findHud = MBProgressHUD.forView(keyWindow()!) {
+                hud = findHud
+            } else {
+                hud = MBProgressHUD.showAdded(to: view, animated: true)
+            }
             hud.label.text = text
             hud.removeFromSuperViewOnHide = true
             hud.defaultStyle()
@@ -36,7 +41,7 @@ import MBProgressHUD
     ///   - view: 展示的视图
     ///   - delay: 延迟隐藏的时间, ==0则不隐藏
     ///   - closure: 隐藏后的回调
-    @objc open class func show(_ text: String?, icon: String?, on view: UIView? = nil, hideAfter delay: TimeInterval = 1.5, config handler: ((MBProgressHUD) -> Void)? = nil, completed closure: (() -> Void)? = nil) {
+    @objc open class func show(_ text: String?, icon: UIImage?, on view: UIView? = nil, hideAfter delay: TimeInterval = 1.5, config handler: ((MBProgressHUD) -> Void)? = nil, completed closure: (() -> Void)? = nil) {
         getMainThread {
             let onView: UIView?
             if let view = view {
@@ -45,13 +50,17 @@ import MBProgressHUD
                 onView = keyWindow()
             }
             guard let view = onView else { return }
-            hide()
-            let hud = MBProgressHUD.showAdded(to: view, animated: true)
+            let hud: MBProgressHUD
+            if let findHud = MBProgressHUD.forView(keyWindow()!) {
+                hud = findHud
+            } else {
+                hud = MBProgressHUD.showAdded(to: view, animated: true)
+            }
             hud.mode = .customView
             hud.label.numberOfLines = 0
             hud.label.text = text
             if let icon = icon {
-                hud.customView = UIImageView(image: UIImage(named: icon))
+                hud.customView = UIImageView(image: icon)
             }
             hud.removeFromSuperViewOnHide = true
             hud.completionBlock = closure
@@ -82,7 +91,14 @@ import MBProgressHUD
     ///   - delay: 延迟隐藏的时间, ==0则不隐藏
     ///   - closure: 隐藏后的回调
     @objc open class func showSucceed(_ text: String?, on view: UIView? = nil, hideAfter delay: TimeInterval = 1.5, config handler: ((MBProgressHUD) -> Void)? = nil, completed closure: (() -> Void)? = nil) {
-        show(text, icon: "hud_succeed", on: view, hideAfter: delay, config: handler, completed: closure)
+        let image: UIImage?
+        let mainBundle = Bundle(for: self)
+        if let path = mainBundle.path(forResource: "YSHUD", ofType: "bundle"), let yshudBundle = Bundle(path: path), let iconPath = yshudBundle.path(forResource: "hud_succeed@2x", ofType: "png") {
+            image = UIImage(contentsOfFile: iconPath)
+        } else {
+            image = nil
+        }
+        show(text, icon: image, on: view, hideAfter: delay, config: handler, completed: closure)
     }
     
     /// 警告
@@ -92,7 +108,14 @@ import MBProgressHUD
     ///   - delay: 延迟隐藏的时间, ==0则不隐藏
     ///   - closure: 隐藏后的回调
     @objc open class func showWarned(_ text: String?, on view: UIView? = nil, hideAfter delay: TimeInterval = 1.5, config handler: ((MBProgressHUD) -> Void)? = nil, completed closure: (() -> Void)? = nil) {
-        show(text, icon: "hud_warned", on: view, hideAfter: delay, config: handler, completed: closure)
+        let image: UIImage?
+        let mainBundle = Bundle(for: self)
+        if let path = mainBundle.path(forResource: "YSHUD", ofType: "bundle"), let yshudBundle = Bundle(path: path), let iconPath = yshudBundle.path(forResource: "hud_warned@2x", ofType: "png") {
+            image = UIImage(contentsOfFile: iconPath)
+        } else {
+            image = nil
+        }
+        show(text, icon: image, on: view, hideAfter: delay, config: handler, completed: closure)
     }
     
     /// 失败
@@ -102,7 +125,14 @@ import MBProgressHUD
     ///   - delay: 延迟隐藏的时间, ==0则不隐藏
     ///   - closure: 隐藏后的回调
     @objc open class func showFailed(_ text: String?, on view: UIView? = nil, hideAfter delay: TimeInterval = 1.5, config handler: ((MBProgressHUD) -> Void)? = nil, completed closure: (() -> Void)? = nil) {
-        show(text, icon: "hud_failed", on: view, hideAfter: delay, config: handler, completed: closure)
+        let image: UIImage?
+        let mainBundle = Bundle(for: self)
+        if let path = mainBundle.path(forResource: "YSHUD", ofType: "bundle"), let yshudBundle = Bundle(path: path), let iconPath = yshudBundle.path(forResource: "hud_failed@2x", ofType: "png") {
+            image = UIImage(contentsOfFile: iconPath)
+        } else {
+            image = nil
+        }
+        show(text, icon: image, on: view, hideAfter: delay, config: handler, completed: closure)
     }
     
     /// 进度
