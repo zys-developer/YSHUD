@@ -1,7 +1,7 @@
 PODS:
   - MBProgressHUD (1.2.0)
-  - YSHUD (0.1.2):
-    - MBProgressHUD
+  - YSHUD (0.1.3):
+    - MBProgressHUD (~> 1.2.0)
 
 DEPENDENCIES:
   - YSHUD (from `../`)
@@ -16,7 +16,7 @@ EXTERNAL SOURCES:
 
 SPEC CHECKSUMS:
   MBProgressHUD: 3ee5efcc380f6a79a7cc9b363dd669c5e1ae7406
-  YSHUD: f85980664467c8187ec20daabc7cf88c3f754485
+  YSHUD: 5c91e31ff9b90992d86118dd4088f9af24a2884c
 
 PODFILE CHECKSUM: 90c2310f7e63292425680db4f17f2f6ee1b2ad6c
 

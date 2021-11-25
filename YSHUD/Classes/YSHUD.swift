@@ -33,6 +33,15 @@ import UIKit
             }
         }
     }
+    @objc open class func showLoading(_ text: String? = nil, config handler: ((MBProgressHUD) -> Void)? = nil) {
+        showLoading(text, on: nil, config: handler)
+    }
+    @objc open class func showLoading(_ text: String? = nil) {
+        showLoading(text, on: nil, config: nil)
+    }
+    @objc open class func showLoading() {
+        showLoading(nil, on: nil, config: nil)
+    }
     
     /// 信息+文字
     /// - Parameters:
@@ -83,6 +92,9 @@ import UIKit
     @objc open class func showMessage(_ text: String?, on view: UIView? = nil, hideAfter delay: TimeInterval = 1.5, config handler: ((MBProgressHUD) -> Void)? = nil, completed closure: (() -> Void)? = nil) {
         show(text, icon: nil, on: view, hideAfter: delay, config: handler, completed: closure)
     }
+    @objc open class func showMessage(_ text: String?) {
+        showMessage(text, on: nil, hideAfter: 1.5, config: nil, completed: nil)
+    }
     
     /// 成功
     /// - Parameters:
@@ -99,6 +111,9 @@ import UIKit
             image = nil
         }
         show(text, icon: image, on: view, hideAfter: delay, config: handler, completed: closure)
+    }
+    @objc open class func showSucceed(_ text: String?) {
+        showSucceed(text, on: nil, hideAfter: 1.5, config: nil, completed: nil)
     }
     
     /// 警告
@@ -117,6 +132,9 @@ import UIKit
         }
         show(text, icon: image, on: view, hideAfter: delay, config: handler, completed: closure)
     }
+    @objc open class func showWarned(_ text: String?) {
+        showWarned(text, on: nil, hideAfter: 1.5, config: nil, completed: nil)
+    }
     
     /// 失败
     /// - Parameters:
@@ -133,6 +151,9 @@ import UIKit
             image = nil
         }
         show(text, icon: image, on: view, hideAfter: delay, config: handler, completed: closure)
+    }
+    @objc open class func showFailed(_ text: String?) {
+        showFailed(text, on: nil, hideAfter: 1.5, config: nil, completed: nil)
     }
     
     /// 进度
@@ -168,6 +189,9 @@ import UIKit
             }
         }
     }
+    @objc open class func showProgressRound(_ text: String?, _ progress: Float) {
+        showProgressRound(text, on: nil, progress, config: nil)
+    }
     
     /// 隐藏
     /// - Parameter view: 展示的视图
@@ -182,6 +206,9 @@ import UIKit
             guard let view = onView else { return }
             MBProgressHUD.hide(for: view, animated: true)
         }
+    }
+    @objc open class func hide() {
+        hide(on: nil)
     }
     
     /// 在主线程执行

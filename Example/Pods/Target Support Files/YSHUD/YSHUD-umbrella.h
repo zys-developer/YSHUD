@@ -10,6 +10,7 @@
 #endif
 #endif
 
+#import "YSHUD.swift"
 
 FOUNDATION_EXPORT double YSHUDVersionNumber;
 FOUNDATION_EXPORT const unsigned char YSHUDVersionString[];

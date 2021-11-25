@@ -8,7 +8,7 @@
 
 Pod::Spec.new do |s|
   s.name             = 'YSHUD'
-  s.version          = '0.1.2'
+  s.version          = '0.1.3'
   s.summary          = '对MBProgressHUD的二次封装'
   s.description      = <<-DESC
   对MBProgressHUD的二次封装, 方便调用
@@ -22,11 +22,10 @@ Pod::Spec.new do |s|
   s.ios.deployment_target = '10.0'
   s.swift_version = '5.0'
 
-  s.source_files = 'YSHUD/Classes/**/*'
+  s.source_files = 'YSHUD/Classes/**/*.swift'
   s.resource_bundles = {
       'YSHUD' => ['YSHUD/Assets/*.png']
   }
 
-  s.public_header_files = 'Pod/Classes/**/*.{h,swift}'
-  s.dependency 'MBProgressHUD'
+  s.dependency 'MBProgressHUD', '~> 1.2.0'
 end
