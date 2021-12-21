@@ -8,7 +8,7 @@
 
 Pod::Spec.new do |s|
   s.name             = 'YSHUD'
-  s.version          = '0.1.3'
+  s.version          = '0.1.4'
   s.summary          = '对MBProgressHUD的二次封装'
   s.description      = <<-DESC
   对MBProgressHUD的二次封装, 方便调用
@@ -19,7 +19,7 @@ Pod::Spec.new do |s|
   s.author           = { 'zys-developer' => 'zys_dev@163.com' }
   s.source           = { :git => 'https://github.com/zys-developer/YSHUD.git', :tag => s.version.to_s }
 
-  s.ios.deployment_target = '10.0'
+  s.ios.deployment_target = '9.0'
   s.swift_version = '5.0'
 
   s.source_files = 'YSHUD/Classes/**/*.swift'

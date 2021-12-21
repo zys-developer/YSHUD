@@ -62,12 +62,20 @@ extension ViewController: UITableViewDelegate {
         case 1:
             HUD.showLoading("HUD.showBlurLoading") { hud in
                 hud.backgroundView.style = .blur
-                hud.backgroundView.blurEffectStyle = .regular
+                if #available(iOS 10.0, *) {
+                    hud.backgroundView.blurEffectStyle = .regular
+                } else {
+                    hud.backgroundView.blurEffectStyle = .light
+                }
             }
             DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(2)) {
                 HUD.showSucceed("HUD.showSucceed") { hud in
                     hud.backgroundView.style = .blur
-                    hud.backgroundView.blurEffectStyle = .regular
+                    if #available(iOS 10.0, *) {
+                        hud.backgroundView.blurEffectStyle = .regular
+                    } else {
+                        hud.backgroundView.blurEffectStyle = .light
+                    }
                 }
             }
         case 2:
@@ -82,16 +90,23 @@ extension ViewController: UITableViewDelegate {
             HUD.showFailed("HUD.showFailed")
         case 6:
             var progress = 0
-            Timer.scheduledTimer(withTimeInterval: 0.05, repeats: true) { timer in
+            let timer = DispatchSource.makeTimerSource(flags: [], queue: .main)
+            timer.schedule(deadline: .now(), repeating: 0.05)
+            timer.setEventHandler {
                 progress += 1
                 HUD.showProgressRound("\(progress)%", Float(progress) / 100) { hud in
                     hud.backgroundView.style = .blur
-                    hud.backgroundView.blurEffectStyle = .regular
+                    if #available(iOS 10.0, *) {
+                        hud.backgroundView.blurEffectStyle = .regular
+                    } else {
+                        hud.backgroundView.blurEffectStyle = .light
+                    }
                 }
                 if progress >= 100 {
-                    timer.invalidate()
+                    timer.cancel()
                 }
             }
+            timer.resume()
         case 7:
             HUD.hide()
         default:
