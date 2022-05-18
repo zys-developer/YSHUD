@@ -1,6 +1,6 @@
 {
   "name": "YSHUD",
-  "version": "0.8",
+  "version": "0.9",
   "summary": "对MBProgressHUD的二次封装",
   "description": "对MBProgressHUD的二次封装, 方便调用",
   "homepage": "https://github.com/zys-developer/YSHUD",
@@ -13,7 +13,7 @@
   },
   "source": {
     "git": "https://github.com/zys-developer/YSHUD.git",
-    "tag": "0.8"
+    "tag": "0.9"
   },
   "platforms": {
     "ios": "9.0"
@@ -27,7 +27,7 @@
   },
   "dependencies": {
     "MBProgressHUD": [
-      "0.8"
+      "0.9"
     ]
   },
   "swift_version": "5.0"
