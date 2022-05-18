@@ -8,7 +8,7 @@
 
 Pod::Spec.new do |s|
   s.name             = 'YSHUD'
-  s.version          = '0.9.1'
+  s.version          = '1.0.0'
   s.summary          = '对MBProgressHUD的二次封装'
   s.description      = <<-DESC
   对MBProgressHUD的二次封装, 方便调用
@@ -27,5 +27,5 @@ Pod::Spec.new do |s|
       'YSHUD' => ['YSHUD/Assets/*.png']
   }
 
-  s.dependency 'MBProgressHUD', '~> 0.9.1'
+  s.dependency 'MBProgressHUD', '1.0.0'
 end
