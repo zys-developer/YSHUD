@@ -62,20 +62,20 @@ extension ViewController: UITableViewDelegate {
         case 1:
             HUD.showLoading("HUD.showBlurLoading") { hud in
                 hud.backgroundView.style = .blur
-//                if #available(iOS 10.0, *) {
-//                    hud.backgroundView.blurEffectStyle = .regular
-//                } else {
-//                    hud.backgroundView.blurEffectStyle = .light
-//                }
+                if #available(iOS 10.0, *) {
+                    hud.backgroundView.blurEffectStyle = .regular
+                } else {
+                    hud.backgroundView.blurEffectStyle = .light
+                }
             }
             DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(2)) {
                 HUD.showSucceed("HUD.showSucceed") { hud in
                     hud.backgroundView.style = .blur
-//                    if #available(iOS 10.0, *) {
-//                        hud.backgroundView.blurEffectStyle = .regular
-//                    } else {
-//                        hud.backgroundView.blurEffectStyle = .light
-//                    }
+                    if #available(iOS 10.0, *) {
+                        hud.backgroundView.blurEffectStyle = .regular
+                    } else {
+                        hud.backgroundView.blurEffectStyle = .light
+                    }
                 }
             }
         case 2:
@@ -96,11 +96,11 @@ extension ViewController: UITableViewDelegate {
                 progress += 1
                 HUD.showProgressRound("\(progress)%", Float(progress) / 100) { hud in
                     hud.backgroundView.style = .blur
-//                    if #available(iOS 10.0, *) {
-//                        hud.backgroundView.blurEffectStyle = .regular
-//                    } else {
-//                        hud.backgroundView.blurEffectStyle = .light
-//                    }
+                    if #available(iOS 10.0, *) {
+                        hud.backgroundView.blurEffectStyle = .regular
+                    } else {
+                        hud.backgroundView.blurEffectStyle = .light
+                    }
                 }
                 if progress >= 100 {
                     timer.cancel()
