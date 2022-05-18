@@ -20,12 +20,12 @@ import UIKit
             }
             guard let view = onView else { return }
             let hud: MBProgressHUD
-            if let findHud = MBProgressHUD.forView(keyWindow()!) {
+            if let findHud = MBProgressHUD(for: view) {
                 hud = findHud
             } else {
                 hud = MBProgressHUD.showAdded(to: view, animated: true)
             }
-            hud.label.text = text
+            hud.labelText = text
             hud.removeFromSuperViewOnHide = true
             hud.defaultStyle()
             if let handler = handler {
@@ -60,14 +60,13 @@ import UIKit
             }
             guard let view = onView else { return }
             let hud: MBProgressHUD
-            if let findHud = MBProgressHUD.forView(keyWindow()!) {
+            if let findHud = MBProgressHUD(for: view) {
                 hud = findHud
             } else {
                 hud = MBProgressHUD.showAdded(to: view, animated: true)
             }
-            hud.mode = .customView
-            hud.label.numberOfLines = 0
-            hud.label.text = text
+            hud.mode = MBProgressHUDModeCustomView
+            hud.labelText = text
             if let icon = icon {
                 hud.customView = UIImageView(image: icon)
             }
@@ -78,7 +77,7 @@ import UIKit
                 handler(hud)
             }
             if delay > 0 {
-                hud.hide(animated: true, afterDelay: delay)
+                hud.hide(true, afterDelay: delay)
             }
         }
     }
@@ -171,13 +170,13 @@ import UIKit
             }
             guard let view = onView else { return }
             let hud: MBProgressHUD
-            if let findHud = MBProgressHUD.forView(keyWindow()!) {
+            if let findHud = MBProgressHUD(for: view) {
                 hud = findHud
             } else {
                 hud = MBProgressHUD.showAdded(to: view, animated: true)
             }
-            hud.mode = .annularDeterminate
-            hud.label.text = text
+            hud.mode = MBProgressHUDModeAnnularDeterminate
+            hud.labelText = text
             hud.removeFromSuperViewOnHide = true
             hud.progress = progress
             hud.defaultStyle()
@@ -185,7 +184,7 @@ import UIKit
                 handler(hud)
             }
             if progress >= 1 {
-                hud.hide(animated: true, afterDelay: 0.3)
+                hud.hide(true, afterDelay: 0.3)
             }
         }
     }
@@ -237,9 +236,9 @@ import UIKit
 extension MBProgressHUD {
     
     fileprivate func defaultStyle() {
-        bezelView.style = .solidColor
-        bezelView.color = UIColor(white: 0, alpha: 0.7)
-        contentColor = .white
+//        bezelView.style = .solidColor
+//        bezelView.color = UIColor(white: 0, alpha: 0.7)
+//        contentColor = .white
     }
     
 }
