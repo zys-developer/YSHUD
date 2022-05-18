@@ -27,7 +27,6 @@ import UIKit
             }
             hud.labelText = text
             hud.removeFromSuperViewOnHide = true
-            hud.defaultStyle()
             if let handler = handler {
                 handler(hud)
             }
@@ -65,14 +64,13 @@ import UIKit
             } else {
                 hud = MBProgressHUD.showAdded(to: view, animated: true)
             }
-            hud.mode = MBProgressHUDModeCustomView
+            hud.mode = .customView
             hud.labelText = text
             if let icon = icon {
                 hud.customView = UIImageView(image: icon)
             }
             hud.removeFromSuperViewOnHide = true
             hud.completionBlock = closure
-            hud.defaultStyle()
             if let handler = handler {
                 handler(hud)
             }
@@ -175,11 +173,10 @@ import UIKit
             } else {
                 hud = MBProgressHUD.showAdded(to: view, animated: true)
             }
-            hud.mode = MBProgressHUDModeAnnularDeterminate
+            hud.mode = .annularDeterminate
             hud.labelText = text
             hud.removeFromSuperViewOnHide = true
             hud.progress = progress
-            hud.defaultStyle()
             if let handler = handler {
                 handler(hud)
             }
@@ -229,16 +226,6 @@ import UIKit
             }
         }
         return UIApplication.shared.windows.last
-    }
-    
-}
-
-extension MBProgressHUD {
-    
-    fileprivate func defaultStyle() {
-//        bezelView.style = .solidColor
-//        bezelView.color = UIColor(white: 0, alpha: 0.7)
-//        contentColor = .white
     }
     
 }
