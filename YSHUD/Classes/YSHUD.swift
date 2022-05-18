@@ -20,7 +20,7 @@ import UIKit
             }
             guard let view = onView else { return }
             let hud: MBProgressHUD
-            if let findHud = MBProgressHUD(for: view) {
+            if let findHud = MBProgressHUD.forView(view) {
                 hud = findHud
             } else {
                 hud = MBProgressHUD.showAdded(to: view, animated: true)
@@ -60,7 +60,7 @@ import UIKit
             }
             guard let view = onView else { return }
             let hud: MBProgressHUD
-            if let findHud = MBProgressHUD(for: view) {
+            if let findHud = MBProgressHUD.forView(view) {
                 hud = findHud
             } else {
                 hud = MBProgressHUD.showAdded(to: view, animated: true)
@@ -170,7 +170,7 @@ import UIKit
             }
             guard let view = onView else { return }
             let hud: MBProgressHUD
-            if let findHud = MBProgressHUD(for: view) {
+            if let findHud = MBProgressHUD.forView(view) {
                 hud = findHud
             } else {
                 hud = MBProgressHUD.showAdded(to: view, animated: true)
